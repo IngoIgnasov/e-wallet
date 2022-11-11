@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  wallet-back:
+    container_name: app-springboot-postgresql
+    build: ./wallet
+    ports:
+      - "8080:8080"
+    depends_on:
+      - dbpostgresql
+  dbpostgresql:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mydb
+  wallet-ui:
+    build: ./wallet-front
+    container_name: wallet-front
+    ports:
+      - 3000:80
